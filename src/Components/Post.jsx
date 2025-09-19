@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Container from './Container'
+import { Link } from 'react-router-dom'
 
 const Post = ({ allpage, filtercate, listitem }) => {
 
@@ -17,10 +18,10 @@ const Post = ({ allpage, filtercate, listitem }) => {
         setshow(false)
     }
 
-    let handlenomore = ()=>{
-         let filcate = filtercate.slice(0, 5)
+    let handlenomore = () => {
+        let filcate = filtercate.slice(0, 5)
         setfiltercatesshow(filcate)
-         setshow(true)
+        setshow(true)
     }
 
     return (
@@ -34,7 +35,14 @@ const Post = ({ allpage, filtercate, listitem }) => {
 
                                 {filtercatesshow.map((item) => (
                                     <div className="w-[32%] bg-[purple] mt-3">
-                                        <img src={item.thumbnail} alt="" />
+
+
+
+                                        <Link to={`/product/${item.id}`}>
+                                            <img src={item.thumbnail} alt="" />
+                                        </Link>
+
+                                           
 
                                         <div className="bg-[transparent] hover:bg-[red]">
                                             <div className="flex justify-between">
@@ -69,7 +77,10 @@ const Post = ({ allpage, filtercate, listitem }) => {
 
                             {allpage.map((item) => (
                                 <div className="w-[32%] bg-[purple] mt-3">
+                                    
+                                    <Link to={`/product/${item.id}`}>
                                     <img src={item.thumbnail} alt="" />
+                                    </Link>
 
                                     <div className="bg-[transparent] hover:bg-[red]">
                                         <div className="flex justify-between">
@@ -77,7 +88,9 @@ const Post = ({ allpage, filtercate, listitem }) => {
                                             <p className='text-[#fff] py-2 pr-1 font-bold'>${item.price}</p>
                                         </div>
                                         <div className="">
+
                                             <h1 className='text-[#fff] py-2 pl-1'>{item.id}</h1>
+
                                         </div>
                                     </div>
                                 </div>

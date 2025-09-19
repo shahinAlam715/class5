@@ -94,11 +94,6 @@ const Product = () => {
         let Filterbrand = data.filter((item)=>item.brand == bitem)
         setfiltercate(Filterbrand)
     
-    console.log(Filterbrand);
-    
-    
-    
-       
     }
     
 
@@ -148,10 +143,10 @@ const Product = () => {
 
                                 <div className="">
                                     <ul>
-                                        <li onClick={handleallproduct} className='py-2 mt-2'><a href="#">All Product</a></li>
+                                        <li onClick={handleallproduct} className='py-2 mt-2'><a>All Product</a></li>
                                         {ccategory.map((item) => (
 
-                                            <li onClick={() => handlecategory(item)} className='py-2 mt-2'><a href="#">{item}</a></li>
+                                            <li onClick={() => handlecategory(item)} className='py-2 mt-2'><a>{item}</a></li>
                                         ))}
 
                                     </ul>
@@ -173,7 +168,7 @@ const Product = () => {
                                        
                                         {brand.map((item) => (
 
-                                            <li onClick={() =>handleBrand(item)} className='py-2 mt-2'><a href="#">{item}</a></li>
+                                            <li onClick={() =>handleBrand(item)} className='py-2 mt-2'><a>{item}</a></li>
                                         ))}
 
                                     </ul>
