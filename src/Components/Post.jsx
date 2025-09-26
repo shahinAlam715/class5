@@ -42,7 +42,7 @@ const Post = ({ allpage, filtercate, listitem }) => {
                                             <img src={item.thumbnail} alt="" />
                                         </Link>
 
-                                           
+
 
                                         <div className="bg-[transparent] hover:bg-[red]">
                                             <div className="flex justify-between">
@@ -60,10 +60,14 @@ const Post = ({ allpage, filtercate, listitem }) => {
                             </div>
 
                             <div className="">
-                                {filtercate.length > 5 ?
+                                {filtercate.length > 5 &&
 
-                                    show && <h2 className='py-2 hover:bg-[purple] hover:text-[#fff] w-[100px] my-2' onClick={handleshowall}>Show All...</h2>
-                                    : filtercate.length > 5 && <h2 className='py-2 hover:bg-[purple] hover:text-[#fff] w-[100px] my-2' onClick={handlenomore}>No More...</h2>
+                                    show ? <h2 className='py-2 hover:bg-[purple]
+                                     hover:text-[#fff] w-[100px] my-2'
+                                        onClick={handleshowall}>Show All...</h2>
+                                    : filtercate.length > 5 && <h2 className='py-2 hover:bg-[purple]
+                                     hover:text-[#fff] w-[100px] my-2'
+                                        onClick={handlenomore}>No More...</h2>
                                 }
                             </div>
 
@@ -72,14 +76,13 @@ const Post = ({ allpage, filtercate, listitem }) => {
 
 
 
-
                         <div className={`justify-between ${listitem == "active" ? 'w-full' : 'w-full flex flex-wrap'}`}>
 
                             {allpage.map((item) => (
                                 <div className="w-[32%] bg-[purple] mt-3">
-                                    
+
                                     <Link to={`/product/${item.id}`}>
-                                    <img src={item.thumbnail} alt="" />
+                                        <img src={item.thumbnail} alt="" />
                                     </Link>
 
                                     <div className="bg-[transparent] hover:bg-[red]">

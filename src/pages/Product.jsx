@@ -19,7 +19,7 @@ const Product = () => {
 
     document.addEventListener("click", (e) => {
 
-        if (cateshowRef.current.contains(e.target)) {
+        if (cateshowRef.current && cateshowRef.current.contains(e.target)) {
 
             setcateshow(!cateshow)
         } else {
@@ -107,8 +107,21 @@ const Product = () => {
         setlistitem("active")
     }
 
+let [low, setlow] = useState([])
+let [hight, sethight] = useState([])
 
-
+    let handleprice = (value)=>{
+        setlow(value.low);
+       sethight(value.hight);
+        
+       let PriceShow = data.filter((item)=>item.price > value.low && item.price < value.hight)
+       setfiltercate(PriceShow);
+       
+        
+    }
+   
+      
+    
 
 
     return (
@@ -163,7 +176,7 @@ const Product = () => {
                                     <h2 className='text-[20px] text-[#262626] font-bold'>Brand</h2>
                                 </div>
 
-                                <div className="">
+                                <div className="h-[200px] overflow-y-scroll">
                                     <ul>
                                        
                                         {brand.map((item) => (
@@ -174,6 +187,32 @@ const Product = () => {
                                     </ul>
                                 </div>
 
+                            </div>
+
+
+                            <div className="">
+                                <div className="">
+                                     <h2 className='text-[20px] text-[#262626] font-bold'>Shop by Price</h2>
+                                </div>
+                                <div className="h-[200px] overflow-y-scroll">
+                                    <ul>
+                                        <li className='py-2 mt-2' onClick={()=>handleprice({low: 0, hight: 10})}>
+                                            $0.00 - $9.99
+                                        </li>
+                                         <li className='py-2 mt-2' onClick={()=>handleprice({low: 11, hight:20})}>
+                                            $10 - $19.99
+                                        </li>
+                                         <li className='py-2 mt-2' onClick={()=>handleprice({low: 21, hight:30})}>
+                                            $20 - $29.99
+                                        </li>
+                                         <li className='py-2 mt-2' onClick={()=>handleprice({low: 31, hight:40})}>
+                                            $30 - $39.99
+                                        </li>
+                                         <li className='py-2 mt-2' onClick={()=>handleprice({low: 41, hight:50})}>
+                                            $40 - $49.99
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
 
 

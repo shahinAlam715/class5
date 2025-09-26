@@ -1,9 +1,12 @@
 import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Container from '../Components/Container'
 import { FaPlus, FaRegStar, FaStar, FaStarHalfAlt } from 'react-icons/fa'
 import { MdKeyboardArrowDown } from 'react-icons/md'
+import { ToastContainer, toast } from 'react-toastify';
+import { useDispatch } from 'react-redux'
+import { addTocart } from '../Components/Slice/productSlice'
 
 const ProductDetails = () => {
 
@@ -61,27 +64,49 @@ const ProductDetails = () => {
   let RoseRef = useRef()
 
 
-  useEffect(()=>{
+  useEffect(() => {
 
     document.addEventListener("click", (e) => {
-  
-      if (clickRef.current.contains(e.target)) {
+
+      if (clickRef.current && clickRef.current.contains(e.target)) {
         setclick(!click)
       } else {
         setclick(false)
       }
 
-       if (RoseRef.current.contains(e.target)) {
+      if (RoseRef.current && RoseRef.current.contains(e.target)) {
         setRose(!Rose)
       } else {
-       setRose(false)
+        setRose(false)
       }
-  
+
     })
 
-  
 
-  },[click, Rose])  
+
+  }, [click, Rose])
+
+
+
+
+  let discountprice = (singleproductid.price * singleproductid.discountPercentage) / 100
+
+  let mainprice = singleproductid.price - discountprice
+
+
+  let navigate = useNavigate()
+  let dispatch = useDispatch()
+
+  let handlecart = (item) => {
+    dispatch(addTocart({...item, quantity:1}))
+    toast("Add to Cart Successfully!")
+    setTimeout(() => {
+      navigate("/cart")
+    }, 2000);
+
+  }
+
+
 
 
 
@@ -105,9 +130,19 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            <div className="my-2">
-              <h2 className='text-[16px] font-bold py-2 text-[#262626]'>${singleproductid.price}</h2>
+
+            <div className="flex gap-x-8 items-center py-2">
+
+              <div className="">
+                <del className='text-[16px] font-bold py-2 text-[#262626]'>$ {singleproductid.price}</del>
+              </div>
+
+              <div className="my-2">
+                <h2 className='text-[16px] font-bold py-2 text-[#262626]'>$ {mainprice.toFixed(2)}</h2>
+              </div>
             </div>
+
+
 
             <div className="flex gap-x-3 items-center">
               <div className="">
@@ -181,12 +216,25 @@ const ProductDetails = () => {
 
             <div className="flex gap-x-6 my-10">
 
+
               <div className="">
-                <button className='h-[60px] border-2 w-[200px] text-[#262626] text-[16px] hover:bg-[#262626] hover:text-[#fff]'>Add to Wish List</button>
+                <button className='h-[60px] border-2 w-[200px] bg-[#262626] text-[#fff]'>Add to Wish List</button>
               </div>
-              <div className="">
-                <button className='h-[60px] border-2 w-[200px] text-[#262626] text-[16px] hover:bg-[#262626] hover:text-[#fff]'>Add to Cart</button>
+              <div className="" onClick={()=>handlecart(singleproductid)}>
+                <button className='h-[60px] border-2 w-[200px] bg-[#262626] text-[#fff]'>Add to Cart</button>
               </div>
+              <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+              />
 
             </div>
 
@@ -233,7 +281,7 @@ const ProductDetails = () => {
             </div>
 
 
-            
+
           </div>
         </Container>
       </section>

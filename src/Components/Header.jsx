@@ -22,7 +22,9 @@ const Header = () => {
                             <Link to="/product">
                             <li><a href="#" className='text-[16px] text-[#767676] hover:font-bold hover:text-[#262626]' >Shop</a></li>
                             </Link>
+                           
                             <li><a  className='text-[16px] text-[#767676] hover:font-bold hover:text-[#262626]' href="#">About</a></li>
+                          
                             <li><a  className='text-[16px] text-[#767676] hover:font-bold hover:text-[#262626]' href="#">Contacts</a></li>
                             <li><a  className='text-[16px] text-[#767676] hover:font-bold hover:text-[#262626]' href="#">Journal</a></li>
                         </ul>
