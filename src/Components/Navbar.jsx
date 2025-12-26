@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import Container from './Container'
 import { FaBarsStaggered, FaCartPlus, FaUser } from 'react-icons/fa6'
 import { IoMdArrowDropdown } from 'react-icons/io'
@@ -7,20 +7,20 @@ import { ImCross } from 'react-icons/im'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { productRemove } from './Slice/productSlice'
+import { ApiData } from './ContextApi'
 
 const Navbar = () => {
 
     let navigate = useNavigate()
     let data = useSelector((state) => state.product.cartItem)
+    let Allah = useContext(ApiData)
 
-    // let dispatch = useDispatch()
+    let dispatch = useDispatch()
 
-    // let handleproductRemove = (i) => {
+    let handleproductRemove = (i) => {
 
-    //     dispatch(productRemove(i))
-
-
-    // }
+        dispatch(productRemove(i));
+    }
 
 
     let handlecart = () => {
@@ -63,7 +63,32 @@ const Navbar = () => {
     }, [info, info1, info2])
 
 
+    
+        
+    let [filtersearch, setfiltersearch] = useState([])
+    let [Searchaa, setsearch] = useState("")
+ 
+    
+    let handlesearch = (e)=>{
+        setsearch(e.target.value);
 
+        if (e.target.value == "") {
+            setfiltersearch([])
+        }else{
+            let titleall = Allah.filter((item)=>item.title.toLowerCase().includes(e.target.value));
+            setfiltersearch(titleall);
+        }
+
+        
+    }
+
+
+    let handlecartpage = (item)=>{
+       navigate(`/product/${item.id}`)
+       setfiltersearch([])
+       setsearch("")
+        
+    }
 
 
 
@@ -100,17 +125,37 @@ const Navbar = () => {
 
                         </div>
 
-                        <div className="w-2/4">
+
+
+                        <div className="w-2/4 relative">
                             <div className="relative">
-                                <input className=' w-full border-1 pl-4 bg-[#fff] outline-none border-[#262626] 
+                                <input onChange={handlesearch} value={Searchaa} className=' w-full border-1 pl-4 bg-[#fff] outline-none border-[#262626] 
                                     py-3 rounded-full' type="text" placeholder='Search Products' />
 
                                 <div className="absolute top-[50%] right-[20px] translate-y-[-50%]">
                                     <FaSearch className='text-[24px]' />
                                 </div>
-
                             </div>
+
+                            {filtersearch.length > 0 ? 
+                            <div className="bg-[red] absolute p-4 w-full h-[500px] overflow-hidden rounded-2xl
+                             z-999">
+                            {filtersearch.map((item)=>(
+                                    <div className="flex justify-between items-center cursor-pointer" onClick={()=>handlecartpage(item)}>
+                                        <div className="">
+                                        <h2>{item.title}</h2>
+                                        </div>
+                                        <div className="">
+                                            <img className='h-[80px] w-[80px]' src={item.thumbnail} alt="" />
+                                        </div>
+                                    </div>
+                                 ))} 
+                            </div> : ""}
+                           
+
                         </div>
+
+
 
                         <div className="w-1/4">
                             <div className="flex justify-end">
@@ -121,8 +166,10 @@ const Navbar = () => {
 
                                     {info1 &&
                                         <div className="absolute z-[2] bg-[#fff] top-[55px] left-0 border-1 border-[#262626] sm:ml-[-50px]">
+                                            <Link to="/login">
                                             <button className='text-[16px] text-[#262626] w-[150px] py-3 hover:bg-[#262626]
                                          hover:text-[#fff]'>My Account</button>
+                                            </Link>
                                             <button className='text-[16px] text-[#262626] py-3 w-[150px] hover:bg-[#262626]
                                          hover:text-[#fff]'>Log Out</button>
                                         </div>
@@ -134,17 +181,20 @@ const Navbar = () => {
 
                                     <FaCartPlus className='text-[24px]' />
 
+                                    {data.length > 0 ?
                                     <div className="absolute top-[-18px] right-[-5px] h-[25px] w-[25px] text-center
                                          leading-[25px] rounded-full bg-[grey] text-[#fff]">
                                         {data.length}
                                     </div>
+                                    : ""}
+
 
 
 
                                     {info2 &&
 
                                         <div className="absolute z-2 top-[54px] left-0 w-[300px] ml-[-240px] border-1 border-[#262626] pb-2">
-                                            {data.map((item) => (
+                                            {data.map((item, i) => (
 
                                                 <div className="flex items-center gap-x-4 py-2 px-2 bg-[#F5F5F3] justify-between">
 
@@ -156,7 +206,7 @@ const Navbar = () => {
                                                         <h1 className='text-[14px] text-[#262626] font-bold'>${item.price}</h1>
                                                     </div>
 
-                                                    <div className="">
+                                                    <div className="" onClick={()=>handleproductRemove(i)}>
                                                         <ImCross className='text-[24px]
                                                      font-bold text-[#262626]'/>
                                                     </div>

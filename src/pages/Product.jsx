@@ -3,7 +3,6 @@ import Container from '../Components/Container'
 import { IoIosArrowForward } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import { IoGridSharp } from 'react-icons/io5'
-import { BiListUl } from 'react-icons/bi'
 import { FaThList } from 'react-icons/fa'
 import { ApiData } from '../Components/ContextApi'
 import Post from '../Components/Post'
@@ -271,11 +270,11 @@ let [hight, sethight] = useState([])
                                         <div className="">
                                             <label htmlFor="">
                                                 <select onChange={handlechangperpage} className='border-1 pl-[38%] ml-2 outline-none w-[100px] py-1' name="" id="">
-                                                    <option value="6">6</option>
+                                                    <option value="6">12</option>
                                                     <option value="10">10</option>
-                                                    <option value="1">1</option>
+                                                    <option value="1">14</option>
                                                     <option value="22">22</option>
-                                                    <option value="12">12</option>
+                                                    <option value="12">30</option>
                                                 </select>
                                             </label>
                                         </div>

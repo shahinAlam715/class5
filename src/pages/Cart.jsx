@@ -4,7 +4,7 @@ import { IoIosArrowForward } from 'react-icons/io'
 import { RxCross2 } from 'react-icons/rx'
 import { useDispatch, useSelector } from 'react-redux'
 import { decrement, increment, productRemove } from '../Components/Slice/productSlice'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Cart = () => {
 
@@ -41,6 +41,14 @@ const Cart = () => {
 
       dispatch(productRemove(i))
 
+    }
+
+
+
+    let navigate = useNavigate()
+
+    let handlecheckout = ()=>{
+        navigate("/checkout")
     }
   
   
@@ -229,10 +237,10 @@ const Cart = () => {
             </div>
 
             <div className="flex justify-end mt-5 pr-2">
-              <Link to="\checout">
+             
               <button className='bg-[#262626] text-[#fff]
-               text-[14px] cursor-pointer py-3 px-6'>Proceed to Checkout</button>
-              </Link>
+               text-[14px] cursor-pointer py-3 px-6' onClick={handlecheckout}>Proceed to Checkout</button>
+             
             </div>
 
           </div>
